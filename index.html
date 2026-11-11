@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday বিজ্ঞানী 🔬</title>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px 20px;
+            width: 100%;
+            max-width: 430px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.4s ease-in-out;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Screen shake animation for roasting */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .shake-it {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 12px;
+            color: #ffcc00;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 14px;
+            color: #e0e0e0;
+        }
+
+        input[type="password"], input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            border-radius: 25px;
+            border: 2px solid #ffcc00;
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 12px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: 0.2s;
+            margin: 5px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-hint {
+            background: #4a69bd;
+            font-size: 13px;
+            padding: 8px 15px;
+        }
+
+        .btn-reveal {
+            background: #eb4d4b;
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+
+        .btn-agreement {
+            background: #2ed573;
+            color: #000;
+            font-size: 14px;
+            padding: 9px 18px;
+            box-shadow: 0 4px 12px rgba(46, 213, 115, 0.4);
+        }
+
+        .photo-box {
+            width: 100%;
+            max-height: 240px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 12px 0;
+            border: 2px solid #ffcc00;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .corner-badge {
+            background: #ff4757;
+            color: white;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        /* Fake Scanner Bar */
+        .scan-bar-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .scan-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff4757, #2ed573);
+            animation: scanAnim 1.8s infinite alternate;
+        }
+        @keyframes scanAnim {
+            from { width: 10%; }
+            to { width: 100%; }
+        }
+
+        .roast-list {
+            text-align: left;
+            background: rgba(0,0,0,0.3);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            border-left: 3px solid #ff4757;
+        }
+
+        /* Screen transitions */
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+
+        /* Floating Balloons */
+        .balloon-anim {
+            font-size: 30px;
+            position: fixed;
+            bottom: -50px;
+            animation: float 5s linear infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-110vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- বেলুন ব্যাকগ্রাউন্ড -->
+    <div class="balloon-anim" style="left: 10%; animation-delay: 0s;">🎈</div>
+    <div class="balloon-anim" style="left: 35%; animation-delay: 2s;">🎉</div>
+    <div class="balloon-anim" style="left: 70%; animation-delay: 1s;">🎈</div>
+    <div class="balloon-anim" style="left: 90%; animation-delay: 3s;">✨</div>
+
+    <div class="card" id="main-card">
+
+        <!-- STEP 1: PASSWORD LOCK -->
+        <div id="step-1" class="step active">
+            <span style="font-size: 45px;">🔬🎂</span>
+            <h1>Happy Birthday বিজ্ঞানী!</h1>
+            <p>ভেতরে ঢোকার জন্য সিক্রেট পাসওয়ার্ড দাও:</p>
+
+            <input type="password" id="passInput" placeholder="Password দিন"><br>
+            <button class="btn" onclick="checkPassword()">Unlock 🔓</button>
+            <p id="error-msg" style="color: #ff6b6b; font-weight: bold;"></p>
+
+            <div style="margin-top: 15px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 12px;">
+                <button class="btn btn-hint" onclick="showHint()">💡 হিন্ট দেখতে ক্লিক করো</button>
+                <p id="hint-text" style="display:none; color: #f9ca24; margin-top: 8px;">
+                    হিন্ট: ১ ডজন কলার সংখ্যা কত? অথবা বছরে কত মাস? হিসাব করো! 🍌📅
+                </p>
+
+                <p style="font-size: 13px; color: #bbb; margin-top: 15px;">
+                    কি ভাই পাসওয়ার্ড পারতেছেন না? ঘি শেষ? যদি ঘি শেষ হয়ে যায় তাহলে নিচে ক্লিক করে পাসওয়ার্ড দেখুন! 😂
+                </p>
+                <div style="text-align: right;">
+                    <button class="btn btn-reveal" onclick="revealPassword()">পাসওয়ার্ড দেখুন 🔑</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: MEDHABI SCREEN (SUPER ROASTED) -->
+        <div id="step-2" class="step">
+            <span style="font-size: 45px;">🧠🕶️</span>
+            <h2>সাবাশ আলট্রা বিজ্ঞানী!</h2>
+
+            <p style="font-size: 16px; font-weight: bold; color: #2ed573;">
+                তার মানে তুমি এই পর্যন্ত এসে পড়ছো? তুমি ভেরি মেধাবী! 😎🔥
+            </p>
+
+            <!-- স্ক্যানিং ট্রোল -->
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin: 15px 0;">
+                <p style="font-size: 13px; color: #feca57; margin-bottom: 5px;">
+                    🔍 নাসার স্যাটেলাইট দিয়ে আপনার ব্রেন স্ক্যান করা হচ্ছে...
+                </p>
+                <div class="scan-bar-container">
+                    <div class="scan-bar"></div>
+                </div>
+                <p style="font-size: 14px; color: #ff6b6b; font-weight: bold; margin: 0;">
+                    স্ক্যান রেজাল্ট: আইকিউ পাওয়া গেছে মাত্র ০.১২%! 🥔
+                </p>
+            </div>
+
+            <p style="font-size: 14px; color: #ff9ff3;">
+                নাসার বিজ্ঞানীরা তোমারে নিয়া কান্নাকাটি করতেছে! নিজের বাকি কীর্তি দেখতে নিচের Continue চাপো ⬇️
+            </p>
+            <button class="btn" onclick="goToStep(3)">Continue ➡️</button>
+        </div>
+
+        <!-- STEP 3: ROAST & TREAT PROMISE & AGREEMENT -->
+        <div id="step-3" class="step">
+            <span class="corner-badge">Happy Birthday আমার আন্তর্জাতিক ফাঁকিবাজ 💀</span>
+
+            <!-- ছবি ১ (এখানে বন্ধুর ছবি বসাবেন) -->
+            <div class="photo-box">
+                <img src="https://postimg.cc/xNkw1WM6">
+            </div>
+
+            <!-- মূল ফানি প্রমিজ -->
+            <div style="background: rgba(255, 71, 87, 0.15); border: 2px dashed #ff4757; border-radius: 12px; padding: 12px; margin: 12px 0;">
+                <p style="font-size: 16px; font-weight: bold; color: #fffa65; margin-bottom: 5px;">
+                    "Alfi আমি তোরে কালকে treat দিমু, যদি treat না দেই তাহলে আমি Gay!" 🤝🤐
+                </p>
+                <p style="font-size: 12px; color: #aaa; margin: 0;">
+                    (উপরে দেওয়া অঙ্গীকারনামা শতভাগ কার্যকর ও অপরিবর্তনযোগ্য)
+                </p>
+            </div>
+
+            <!-- ট্রোল ডিজিটাল সাইন বাটন -->
+            <button class="btn btn-agreement" id="signBtn" onclick="signAgreement()">চুক্তিতে ডিজিটাল সাইন মারুন ✍️</button>
+            <p id="sign-status" style="display:none; color: #2ed573; font-size: 13px; font-weight: bold; margin-top: 8px;">
+                ✅ সাইন সম্পন্ন! স্ক্রিনশট ক্লাউডে সেভ হইছে, আর মাপ নাই! 😂
+            </p>
+
+            <br>
+            <button class="btn" onclick="triggerGrandFinale()" style="margin-top: 10px;">Next ➡️</button>
+        </div>
+
+        <!-- STEP 4: GRAND FINALE (ROAST + CELEBRATION) -->
+        <div id="step-4" class="step">
+            <span style="font-size: 50px;">🎆🎂🎇</span>
+            <h1 style="font-size: 25px; color: #ff4757; text-shadow: 0 0 10px #ff6b81;">
+                🎈 Happy Birthday রাকিব ভাই! 🎈
+            </h1>
+
+            <span style="background: #eccc68; color: #000; font-weight: bold; padding: 4px 10px; border-radius: 8px; font-size: 12px;">
+                🏆 খেতাব: জাতিসংঘ স্বীকৃত শ্রেষ্ঠ কিপটা
+            </span>
+
+            <!-- ফাইনাল বড় ছবি (রাকিব ভাইয়ের ছবি এখানে বসাবেন) -->
+            <div class="photo-box" style="border: 3px solid #ff4757; max-height: 250px; margin-top: 12px;">
+                <img src="https://postimg.cc/NyS7wSG5">
+            </div>
+
+            <!-- স্পেশাল ৩টি ফানি দোয়া -->
+            <div class="roast-list">
+                <strong>🤲 রাকিব ভাইয়ের জন্য স্পেশাল ৩টি দোয়া:</strong><br>
+                ১. মাথার চুল যেন দ্রুত না পড়ে এবং টাক মাথা রোধ হোক! 👴<br>
+                ২. রেস্টুরেন্টে বিল দেওয়ার সময় ওয়াশরুমে পালানোর বদভ্যাস দূর হোক! 🚽<br>
+                ৩. এই বছর অন্তত যেন একটা কিউট ভাবি আমাদের ভাগ্যে জোটে! 💔
+            </div>
+
+            <p style="font-size: 15px; color: #f1f2f6; font-weight: bold;">
+                গান শুরু হয়ে গেছে! আজকের দিনে পার্টি মিস দিলে রক্ষা নাই! 🔥🥳
+            </p>
+
+            <button class="btn" onclick="triggerConfettiExplosion()">আরো বাজি ফোটাও! 💥</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ১. পাসওয়ার্ড চেকিং
+        function checkPassword() {
+            const input = document.getElementById('passInput').value.trim();
+            if (input === "12") {
+                goToStep(2);
+            } else {
+                triggerShake();
+                document.getElementById('error-msg').innerText = "ভুল পাসওয়ার্ড! বুদ্ধি কি হাঁটুতে নাকি? 😂";
+            }
+        }
+
+        function showHint() {
+            document.getElementById('hint-text').style.display = 'block';
+        }
+
+        function revealPassword() {
+            alert("লও ঠেলা! পাসওয়ার্ড হলো: 12\nএত সহজ জিনিস পারো না? ইনপুট বক্সে ১২ লিখে Unlock দাও 😆");
+        }
+
+        // কার্ড ঝাঁকুনি এনিমেশন
+        function triggerShake() {
+            const card = document.getElementById('main-card');
+            card.classList.add('shake-it');
+            setTimeout(() => card.classList.remove('shake-it'), 400);
+        }
+
+        // স্টেপ বদলানো
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step-' + stepNumber).classList.add('active');
+        }
+
+        // চুক্তি সই ট্রোল
+        function signAgreement() {
+            triggerShake();
+            document.getElementById('signBtn').style.display = 'none';
+            document.getElementById('sign-status').style.display = 'block';
+        }
+
+        // গ্র্যান্ড ফিনালে ও গান চালু
+        function triggerGrandFinale() {
+            goToStep(4);
+            playBirthdayTune();
+            triggerConfettiExplosion();
+        }
+
+        // আতশবাজি ও কনফেটি
+        function triggerConfettiExplosion() {
+            let duration = 4 * 1000;
+            let animationEnd = Date.now() + duration;
+
+            let interval = setInterval(function() {
+                let timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+
+                confetti({
+                    particleCount: 45,
+                    startVelocity: 35,
+                    spread: 360,
+                    origin: { x: Math.random(), y: Math.random() - 0.2 }
+                });
+            }, 250);
+        }
+
+        // Happy Birthday সুর (Web Audio API)
+        function playBirthdayTune() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [
+                    {f: 261.63, d: 0.3}, {f: 261.63, d: 0.3}, {f: 293.66, d: 0.6}, {f: 261.63, d: 0.6}, {f: 349.23, d: 0.6}, {f: 329.63, d: 1.0},
+                    {f: 261.63, d: 0.3}, {f: 261.63, d: 0.3}, {f: 293.66, d: 0.6}, {f: 261.63, d: 0.6}, {f: 392.00, d: 0.6}, {f: 349.23, d: 1.0}
+                ];
+                let time = ctx.currentTime;
+
+                notes.forEach(note => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(note.f, time);
+                    gain.gain.setValueAtTime(0.2, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(time);
+                    osc.stop(time + note.d);
+                    time += note.d + 0.08;
+                });
+            } catch (e) {
+                console.log("Audio autoplay restricted");
+            }
+        }
+    </script>
+</body>
+</html>
